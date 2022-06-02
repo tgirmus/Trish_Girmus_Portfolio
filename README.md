@@ -13,4 +13,6 @@ Currently an Analyst in Cox Media, I'm passionate about
 [Project 2](Project%202/README.md)\
 [Project 3](Project%203/README.md)\
 
-### 
+### Contact
+
+[Linkedin](https://www.linkedin.com/in/trish-girmus-1620018/)
