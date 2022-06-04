@@ -29,6 +29,8 @@ Currently I am an Data Analyst for Cox Communications. I recently completed my M
 
 [SNAP Eligibility by Geographic Region - Linear Regression](SNAP%20Eligibility%20by%20Geographic%20Region%20-%20Linear%20Regression) - SNAP Eligibility by Geographic Region – Using Linear Regression: this project focused on whether SNAP benefit eligibility accurately portrayed a families’ need for food based on geographic region? Data was selected from the USDA.gov website. Linear Regression modeling was used for this project. 
 
+[U.S. Debt - Data Wrangling & SQL](U.S.%20Debt%20-%20Data%20Wrangling%20%26%20SQL/README.md) - this project showcased data preparation, using Python & SQL. Data selected for this project was found on fiscaldata.treasury.gov for years 2016-2020.
+
 ### Contact
 Trish Girmus  (402) 630-4249  
 [Linkedin](https://www.linkedin.com/in/trish-girmus-1620018/)
