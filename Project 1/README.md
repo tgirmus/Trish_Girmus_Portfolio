@@ -1,7 +1,7 @@
 # Project 1
 
 ## Description
-The title of this project is What Factors Predict Inflation? Linear Regression Modeling is used to predict which features caused the CPI (Consumer Price Index) measure increase in February 2022. This is the highest measure the United States has witnessed in 40 years.  
+The title of this project is What Factors Predict Inflation? **Linear Regression Modeling** is used to predict which features caused the Consumer Price Index (CPI)  measure increase in February 2022. This is the highest measure the United States has witnessed in 40 years.  
 During EDA, data was standardized so it all measured as an Index. The methodology was the same used for calculating CPI. Correlation heatmaps were used to determine the relationships between variables. Visualizations were also created to review relationships with variables. Five models were then created using an ordinary least square regression results (OLS). Python was used for this project. 
 
 ## Data References
