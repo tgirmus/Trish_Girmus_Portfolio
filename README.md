@@ -25,7 +25,7 @@ Currently I am an Data Analyst for Cox Communications. I recently completed my M
 
 [Project 2](Project%202/README.md) Nic Cage Movie Ratings Prediction – Using Logistic Regression: this project focused on beloved actor Nicholas Cage and successful movie career. Using the movie genre drama, predict randomly generated movies to see if movie rating has a rating higher the average ratings across all movies. Logistic Regression modeling was used. Data was collected from the IMDb database.   
 
-[Project 3](Project%203/README.md)\
+[Predict Features Cinema Revenue](Predict%20Features%20Cinema%20Revenue%20-%20Linear%20Regression/README.md) - Predict Features to Generate Cinema Revenue Sales – Using Linear Regression: this project featured cinema ticket revenue and how to predict features that would generate more revenue in sales. Data was found on Kaggle for March-November 2018. Linear Regression modeling was used for this project.  
 
 ### Contact
 Trish Girmus  (402) 630-4249  
