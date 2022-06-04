@@ -22,5 +22,6 @@ Currently I am an Data Analyst for Cox Communications. I recently completed my M
 [Project 3](Project%203/README.md)\
 
 ### Contact
-
+Trish Girmus  (402) 630-4249  
 [Linkedin](https://www.linkedin.com/in/trish-girmus-1620018/)
+
