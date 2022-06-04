@@ -2,7 +2,7 @@
 
 ### Introduction
 
-👋Hi I'm Trish, 
+👋Hi I'm Trish,   
 Currently I am an Data Analyst for Cox Communications. I recently completed my Master's Degree in Data Science.
 
 ### Other Interests
