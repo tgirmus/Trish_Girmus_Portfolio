@@ -6,7 +6,16 @@
 **I enjoyed working on it**
 
 👋Hi I'm Trish, 
-Currently an Analyst in Cox Media, I'm passionate about 
+Currently I am an Data Analyst for Cox Communications. I recently completed my Master's Degree in Data Science.
+
+### Other Interests
+* Running and health -- I love to run and have participated in several half marathons in the Midwest.   Running clears my head and provides a focus.
+
+* My pet Miley -- I have had my wonderful dog Miley for 14 years.   She goes with me on long walks.
+
+* Movies -- I am an avid movie watcher and admire women that can accomplish goals.    Marilyn Monroe and Wonder Woman are favorites.
+
+* Money -- I am interested in increasing my personal income and like analyzing different aspects of money.  
 
 ###  Projects
 [Project 1](Project%201/README.md) - What Factors Predict Inflation? – Using Linear Regression: this project focused on what features predicted the latest CPI measure increase in February 2022. Data selected for this project contained years November 1978-February 2022 from multiple sources, primarily from the U.S. Bureau of Labor Statistics website. Linear Regression modeling was used.  
