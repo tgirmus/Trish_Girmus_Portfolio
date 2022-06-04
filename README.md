@@ -1,9 +1,6 @@
 # Trish Girmus Portfolio
 
-# Trish  project is about a poster
-## this is a small header
-### even smaller 
-**I enjoyed working on it**
+### Introduction
 
 👋Hi I'm Trish, 
 Currently I am an Data Analyst for Cox Communications. I recently completed my Master's Degree in Data Science.
