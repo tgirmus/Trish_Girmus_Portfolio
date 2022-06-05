@@ -1,0 +1,1 @@
+T4Y2F Airlines: Why Air Travel is Safest Mode of Transportation – this project used Visualization and focused on the T4Y2F (Time 4 You 2 Fly) Airlines to prove that air travel is safer than other means of transportation.  Visualizations were created with Tableau to show the explanations featured in this project.
