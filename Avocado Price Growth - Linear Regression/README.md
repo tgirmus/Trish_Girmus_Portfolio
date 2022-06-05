@@ -1,0 +1,1 @@
+This project used linear regression to analyze U.S. Hass avocado data from 2015-2019.  The goal was to determine if the price of an avocado could be increased based on demand?  Both simple and multiple Linear Regression was used. 
