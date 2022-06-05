@@ -1,0 +1,249 @@
+---
+title: "Avocado Price Growth"
+author: "Trish Girmus"
+date: "August 7, 2020"
+output:
+  word_document: default
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+  
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction 
+
+When I began this project, I learned that the popularity of avocados has increased over the past two decades. Consumption per capita in the 90’s was 1.6 lbs. From 2014-16 alone that increased to 7.1 lbs. per capita. As avocados have now been deemed a “superfood”, I was curious to see the consumer behavior with purchase. If there is enough demand for this health food, can price be increased? I also wanted to see if there was correlation between the variables. The data set I worked with is from 2015-2019 and is the brand Hass avocados. This data contains purchases made in the U.S. only. 
+
+
+## Load Data File & Install Packages
+
+```{r}
+## Load Data, Read File & Install Packages ##
+setwd("C:/Users/Owner/Documents/R Class/DSC520")
+avocado<-read.csv("Avocado_Prices_Data.csv", header=TRUE)
+library(ggplot2)
+library(lubridate)
+library(tibble)
+library(pander)
+```
+
+
+## Clean Data
+
+I began this process by taking the data set and cleaning it. While observing this information, I noticed that there were many overlapping geographic locations where avocados were purchased, and some regions contained the same name but listed differently. I subset the Total U.S. response under the Region variable and removed the rest of the regions for my initial analysis. This was to prevent skewness with the data and to create a smaller sample set to work with. I also changed the formatting of dates or purchase as well as changing Type of avocado and Region variables from characters to factors. Once this was completed, my data was ready for further analysis. 
+
+```{r}
+## Clean Data ##
+names(avocado)[2]<-"Average_Price"
+names(avocado)[3]<-"Total_Volume"
+names(avocado)[4]<-"Small_Hass"
+names(avocado)[5]<-"Large_Hass"
+names(avocado)[6]<-"XLarge_Hass"
+names(avocado)[7]<-"Total_Bags"
+names(avocado)[8]<-"Small_Bags"
+names(avocado)[9]<-"Large_Bags"
+names(avocado)[10]<-"XLarge_Bags"
+names(avocado)[11]<-"Type"
+names(avocado)[12]<-"Year"
+names(avocado)[13]<-"Region"
+names(avocado)
+avocado[1]=lubridate::parse_date_time(avocado$Date, "%m/%d/%Y")
+
+avocado$Region = as.factor(avocado$Region)
+levels(avocado$Region)
+avocado.us=subset(avocado, Region == "Total U.S." | Region == "TotalUS")
+levels(avocado$Region) = c(levels(avocado$Region)[1:74], levels(avocado$Region)[74], levels(avocado$Region)[76:78])
+avocado.us = avocado.us[order(avocado.us$Date),]
+```
+ 
+
+## Analysis
+
+```{r}
+## Data Overview ##
+str(avocado.us)
+```
+**I started my analysis by running the structure of the data frame. After cleaning the data, it shows I have 506 observations and 13 variables.**
+
+
+```{r}
+## Data Overview #
+summary(avocado.us)
+summary(avocado.us$Average_Price)
+boxplot(avocado.us$Average_Price, ylab = "Mean of Average Price", main = "US Average Price")
+```
+**After looking at the structure of the data frame, I ran a summary of the data to see what the average price of an avocado was. It is $1.33. I then plotted a box plot to see what this looked like visually.**
+
+
+```{r}
+
+plot(avocado.us, main = "Average US Price")
+hist(avocado.us$Average_Price, xlab = "Average Price", main = "US Average Price of Hass Avocdo")
+```
+**I also plotted a histogram with Average Price. It appears to have a normal distribution. When I ran the histogram prior to cleaning my data, it was showed skewness which alerted me that something was wrong with my data. I also studied the minimum ($0.76) and maximum ($2.09) price. I also looked at Total Volume to see what the minimum (3,424) and maximum (63,716,144) volume of avocados sold showed. I would say we as Americans enjoy eating avocados! Something I discovered while analyzing this information is noticing that by analyzing individual size of avocado sold versus total bags and total volume would cause error and overlapping with my strategy, so I decided to include Date, Average Price, Total Volume, Type and Region. I will go into further detail about this in another section.**
+
+
+
+Next, I plotted another graph to show the Average Price purchased by Date to see if there was a trend in seasonality with relation to price. 
+
+```{r}
+plot(avocado.us$Date, avocado.us$Average_Price, type = "b", pch = 16,cex = .3,
+     xlab = "Date", ylab = "Average Price (USD)", main = "Average Price By Date 2015-2019")
+```
+**As I suspected and as the graph shows, average price is lower during the winter months, but price slowly increases around spring through summer months where it then peaks. From fall back into winter months the price slowly declines. This buying behavior shows to be consistent throughout the five years of data collected. This story tells me a couple different things. One, when weather is colder the demand is less, and therefore consumers are not buying avocados. When the weather is warm, the average price increases when there is more demand. Weather does affect avocado price!**
+
+
+## Linear Regression
+
+My next steps were running simple linear regression models on the individual variables to see if they showed significance with Average Price. Part of this step determined that I could not use the individual size and total bags of avocados as it would affect Total Volume of avocados sold. This is because Total Volume is its own variable. 
+
+```{r}
+## Linear Regression ##
+Total_Volumelm = lm(Average_Price~Total_Volume, data = avocado.us)
+summary(Total_Volumelm)
+
+Small_Hasslm =lm(Average_Price~Small_Hass, data = avocado.us)
+summary(Small_Hasslm)
+
+Large_Hasslm =lm(Average_Price~Large_Hass, data = avocado.us)
+summary(Large_Hasslm)
+
+XLarge_Hasslm =lm(Average_Price~XLarge_Hass, data = avocado.us)
+summary(XLarge_Hasslm)
+
+Total_Bagslm =lm(Average_Price~Total_Bags, data = avocado.us)
+summary(Total_Bagslm)
+
+Small_Bagslm =lm(Average_Price~Small_Bags, data = avocado.us)
+summary(Small_Bagslm)
+
+Large_Bagslm =lm(Average_Price~Large_Bags, data = avocado.us)
+summary(Large_Bagslm)
+
+XLarge_Bagslm =lm(Average_Price~XLarge_Bags, data = avocado.us)
+summary(XLarge_Bagslm)
+```
+**Since this was my first analysis/projectproject of this sort, I quickly discovered after running the simple linear regression that all variables had significance with Average Price and did not make sense to use this with my prediction. I am including these examples merely to show that the variables all showed significance.**
+ 
+
+I did review my model on Type which backs up my theory on a graph I plotted before I ran the linear regression models. I originally had this information in another section of my analysis but decided to include it in this section because of topic relevancy. 
+
+```{r}
+avocado.us$Type = as.factor(avocado.us$Type)
+Typelm =lm(Average_Price~Type, data = avocado.us)
+summary(Typelm)
+anova(Typelm)
+plot(avocado.us$Type, avocado.us$Average_Price, ylab = "Average Price", xlab = "Type of Avocado", main = "Mean of Average Price of Type of Avocado")
+```
+**As you see, for a conventional avocado, the average price is $1.10, and shows that the average price for an organic avocado goes up $0.45 higher, or $1.55 when adding the two together.**
+
+
+
+A graph I plotted earlier in my analysis as discussed above was regarding Type of avocado (in this case conventional, which is red and organic, which is green) and Total Volume Purchased by Date. I wanted to see what type of avocados are purchased and when. I was also curious to see what the trend looks like. 
+
+```{r}
+
+plot(avocado.us$Date, avocado.us$Total_Volume, pch = 16,cex = .3, 
+     xlab = "Date", ylab = "Total Volume", main = "Total Volume Purchased By Date 2015-2019",col = (avocado.us$Type=="organic")+2)
+```
+**As you can see, the total volume of organic avocado purchases is low. There is also a lower variance with organic volume. Conventional total volume is much higher, and you can also see the dips with time of year and seasonality when purchases are made. This graph tells me a couple of things as well. One, organic avocado purchase/volume is flat throughout the five-year span. I presume this is due to price as organic food is typically more expensive than conventional food. There is also no demand for organic avocados any time of year. Secondly, looking at the data of conventional volume purchased, more volume is sold overall with this type of avocado. Total volume sales occur in the summer and warmer months than they do during the winter months. It also does appear that total volume in 2019 was the highest overall five years. There is an increase in conventional volume sold from 2015 to 2019.**
+
+
+```{r}
+Datelm =lm(Average_Price~Date, data = avocado.us)
+summary(Datelm)
+
+Yearlm =lm(Average_Price~Year, data = avocado.us)
+summary(Yearlm)
+```
+
+
+I also decided when running the simple linear regression to include regions back into this type analysis, for this part only. It did not make sense to use Total U.S. for this model. I originally wanted to determine what affect Average Price had with Region. As this was somewhat complicated initially due to duplicates names and regions overlapping themselves, I included the responses of Region from the data with Great Lakes, Mid South, Northeast, Plains, South Central, Southeast, and West for my model. This model gave me some good information about Average Price and Region. As you will see, when using Great Lakes at the intercept, most other regions have a higher average price.
+
+```{r}
+avocado.region = subset(avocado, Region == "Great Lakes" | Region == "GreatLakes" | Region == "Midsouth" | Region == "Northeast" | Region == "Plains" | Region == "South Central" | Region == "SouthCentral" | Region == "Southeast" | Region == "West")
+for(i in 1:nrow(avocado.region)){
+  if(avocado.region$Region[i]=="Great Lakes"){
+    avocado.region$Region[i]="GreatLakes"
+  }else if(avocado.region$Region[i]=="South Central"){
+    avocado.region$Region[i]="SouthCentral"
+  }
+}
+Regionlm =lm(Average_Price~Region, data = avocado.region)
+summary(Regionlm)
+anova(Regionlm)
+```
+**For example, the Region Northeast’s average price is $1.56 compared to Great Lake’s average price of $1.33. Region South Central’s price is even cheaper at $1.13. The Coefficients Mid South, Northeast, Plains and South Central all showed significance. The Coefficients Southeast and West did not show significance as the P-Values for those respectively were higher than 0.05. It was also surprising to see that there was no difference between Average Price with Great Lakes and the West Regions. I would automatically assume that average prices of avocados would be higher in that region, but maybe due to weather avocados can be grown and sold cheaper in the West. Also, by running an anova table (since these are categorical variables) it shows Region is significant. So, for my original question I can conclude that Region makes a difference with Average Price!**
+
+
+## Multiple Regression
+
+Once I ran and analyzed the models I built from simple linear regression, I decided to build a model with multiple regression. As I mentioned earlier, I chose the variables Total Volume, Type and Region along with Average Price. I learned when running my models for linear regression that looking at individual size of avocado and total bags sold would skew the data as I only want to see what volume was sold. 
+
+```{r}
+## Multiple Regression ##
+full.model = lm(Average_Price~Total_Volume+Type+Region, data = avocado.region)
+reduced.model = step(full.model,direction="backward")
+summary(reduced.model)
+```
+**This model showed significance with all Coefficients except for the Region Plains. When looking at R-squared, it shows that with a 62% variability in the Average Price, it is explained by this model which means this is a good model.**  
+
+
+```{r}
+qqnorm(resid(reduced.model))
+qqline(resid(reduced.model))
+```
+**I also tested this by plotting a qqnorm and qqline to see if this model is adequate. The plot confirms this was a good model.**
+
+
+I also made another plot to show the Total Volume and Average Price based on Avocado Type. 
+
+```{r}
+plot(avocado.us$Total_Volume, avocado.us$Average_Price, col = (avocado.us$Type=="organic")+2, main = "Type of Avodado By Volume & Average Price")
+abline(lm(Average_Price~Total_Volume,data = avocado.us))
+```
+**The total volume is less when buying organic and shows that a higher price is paid. For conventional avocados, more volume is sold at a lower average price. This also shows that there is a linear relationship between volume and price. As total volume goes up, average price goes down.**
+
+
+## Conclusion from Analysis
+
+Based on this model, I have determined that although there is a linear relationship between Total Volume and Average Price, I cannot increase price to grow revenue. This conclusion also results from the rest of my analysis. The law of economics explains supply and demand. In this case, there is too much supply and not enough demand. I am disappointed that I cannot increase price. I also determined that I might have been looking at too many aspects of data to answer my initial question, which may or may not have addressed my question at all. I was eager to slice and dice the data and see what I could draw conclusions from. I also learned through this project as much as I love to get into the weeds with analysis, this research could go on for days, possibly longer depending on what kind of information is analyzed. Something else I learned from this project is that sometimes you might be asking the wrong questions. The data can tell the story you're looking for, but you may have to shift the strategy in order to find the solution you're looking for.  
+
+As I was optimistic to increase price, I put together a prediction model based on Total Volume, Type of avocado and Region. The Region does include the handful of geographical locations I looked at in an earlier section and not Total U.S. When looking at the summary of data to start, I looked at minimum total volume sold and picked the Type of avocado (conventional or organic) and a Region to predict price for a single prediction.  I also included a confidence interval which gives the mean of the observation. I used the lowest total volume sold to show a comparison of conventional and organic avocados in the West region. Once again, it shows that organic average price is higher than conventional.
+
+
+## Prediction Model for Conventional Avocado
+
+```{r, echo=FALSE}
+## Prediction Model Conventional ##
+new.data = data.frame(Total_Volume=3424,Type = "conventional", Region = "West")
+predict(reduced.model, new.data, interval="predict")
+predict(reduced.model, new.data, interval="confidence")
+```
+**The predicted & confidence value is $1.44 for a conventional type of avocado**
+
+
+## Prediction Model for Organic Avocado
+
+```{r, echo=FALSE}
+## Prediction Organic Conventional ##
+new.data = data.frame(Total_Volume=3424,Type = "organic", Region = "West")
+predict(reduced.model, new.data, interval="predict")
+predict(reduced.model, new.data, interval="confidence")
+```
+**The predicted & confidence value is $1.63 for an organic type of avocado**
+
+
+This was a fun project and really enjoyed it. It was nice to apply our skills from what we have learned this semester and be able to provide the “why” behind the “how”. Thank you to everyone for a great semester!
+
+Sources:
+
+https://hassavocadoboard.com/ 
+
+https://hassavocadoboard.com/wp-content/uploads/2019/03/hab-latest-independent-economic-evaluation-2018.pdf
+
+
