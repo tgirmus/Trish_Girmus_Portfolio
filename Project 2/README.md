@@ -1,0 +1,1 @@
+This project used Logistic Regression to determine if Nicolas Cage (NC) has had a successful movie career.  The project randomly selected NC drama movies to determine if the movie’s overall rating was higher than the average ratings for all movies shown during the same period of time.  Data was collected from the IMDb database. 
